@@ -20,6 +20,7 @@ export interface PhotoCardItem {
   title: string; // หัวข้อรูปถ่าย (เช่น รูปภายในบ้าน, รูประดับน้ำ)
   subtitle: string; // คำอธิบายรายละเอียดใต้ภาพ
   bgColor: 'blue' | 'indigo' | 'sky'; // โทนสีพื้นหลังการ์ดตัวอย่างภาพ
+  imageUrl?: string; // ลิงก์รูปภาพหรือ Base64 สำหรับแสดงผลจริงใน Modal
 }
 
 // โครงสร้างข้อมูลหลักของใบคำขออนุมัติ 1 รายการ (ใช้ทั้งในหน้า Dashboard และหน้า Approval)
@@ -46,6 +47,7 @@ export interface ApprovalRequest {
   currentAddress: string; // ที่อยู่ปัจจุบันที่ได้รับผลกระทบ
   houseType: string; // ลักษณะที่อยู่อาศัย (เช่น บ้านตนเอง, บ้านเช่า)
   houseDocName: string; // ชื่อไฟล์เอกสารที่อยู่แนบ
+  houseDocUrl?: string; // ลิงก์ไฟล์หรือ Base64 ของเอกสารยืนยันที่อยู่
 
   // ส่วนที่ 2: รายละเอียดผลกระทบและระยะเวลา
   impactDuration: string; // ช่วงเวลาและจำนวนวันที่ได้รับผลกระทบ

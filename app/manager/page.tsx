@@ -24,12 +24,17 @@ const ago = (iso: string) => {
 };
 const BG = ['blue', 'indigo', 'sky'] as const;
 
+type AttachmentWithUrl = Claim['attachments'][number] & { dataUrl?: string };
+
 function toRequest(db: Db, c: Claim): ApprovalRequest {
   const e = db.employees.find((x) => x.id === c.employeeId);
   const f = db.forms.find((x) => x.id === c.formId);
   const lv = (c.hr?.level ?? c.selfLevel ?? 1) as 1 | 2 | 3;
   const sev = SEV[lv] ?? SEV[1];
   const isD = c.type === 'disaster';
+  const attachments = c.attachments as AttachmentWithUrl[];
+  const houseDoc = attachments.find((a) => a.label.includes('เอกสาร') || a.label.includes('ใบเสร็จ'));
+
   return {
     id: c.id,
     employeeId: c.employeeId,
@@ -50,11 +55,17 @@ function toRequest(db: Db, c: Claim): ApprovalRequest {
     registeredAddress: e?.registeredAddress ?? '-',
     currentAddress: c.currentAddress,
     houseType: isD ? c.houseType ?? '-' : `ผู้ป่วย: ${c.patientName} (${c.relation})`,
-    houseDocName: c.attachments.find((a) => a.label.includes('เอกสาร') || a.label.includes('ใบเสร็จ'))?.name ?? '-',
+    houseDocName: houseDoc?.name ?? '-',
+    houseDocUrl: houseDoc?.dataUrl,
     impactDuration: isD ? `${thDate(c.impactFrom)} – ${thDate(c.impactTo)}` : `วันที่รักษา ${thDate(c.treatDate)}`,
     description: c.description,
-    photoCards: c.attachments.slice(0, 3).map((a, i) => ({ title: a.label, subtitle: a.name, bgColor: BG[i % 3] })),
-    documentChecklist: c.attachments.map((a) => `${a.label}: ${a.name}`),
+    photoCards: attachments.slice(0, 3).map((a, i) => ({
+      title: a.label,
+      subtitle: a.name,
+      bgColor: BG[i % 3],
+      imageUrl: a.dataUrl,
+    })),
+    documentChecklist: attachments.map((a) => `${a.label}: ${a.name}`),
     hrScreeningChecks: c.hr?.checks ?? [],
     hrNote: c.hr?.note || '-',
   };
