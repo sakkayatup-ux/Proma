@@ -19,7 +19,7 @@ export default function NoticeHeader({ target, color, roleLabel }: { target: str
   return (
     <div className="flex items-center justify-end gap-3 mb-8 relative">
       <button onClick={toggle} className={`text-xs font-semibold px-3.5 py-1.5 rounded-full border cursor-pointer ${unread ? 'bg-rose-50 text-rose-600 border-rose-200' : 'bg-white text-slate-500 border-slate-200'}`}>
-        แจ้งเตือน {unread}
+         แจ้งเตือน {unread}
       </button>
       {open && (
         <div className="absolute right-0 top-11 w-96 bg-white border border-slate-200 rounded-2xl shadow-xl z-40 p-4 max-h-96 overflow-y-auto">

@@ -41,7 +41,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <h1 className="text-xl font-bold tracking-tight text-white">
             ระบบสวัสดิการและพนักงาน
           </h1>
-
+      
         </div>
 
         {/* รายการปุ่มเมนูนำทาง */}
