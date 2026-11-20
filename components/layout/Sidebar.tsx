@@ -39,8 +39,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         {/* ส่วนหัวแบรนด์และป้ายสถานะสิทธิ์ผู้บริหาร */}
         <div className="mb-8">
           <h1 className="text-xl font-bold tracking-tight text-white">
-            ระบบพนักงานและสวัสดิการ
+            ระบบสวัสดิการและพนักงาน
           </h1>
+
         </div>
 
         {/* รายการปุ่มเมนูนำทาง */}
@@ -60,9 +61,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               >
                 <span className="flex items-center gap-3">
                   <span
-                    // className={`h-2 w-2 rounded-full ${
-                    //   isActive ? 'bg-white' : 'bg-slate-500'
-                    // }`}
+                    
                   />
                   {item.label}
                 </span>
